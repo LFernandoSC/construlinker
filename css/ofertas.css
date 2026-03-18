@@ -1,0 +1,390 @@
+/* ═══════════════════════════════════════════════════════════════
+   CONSTRULINKER — ofertas.css
+   Publicación de ofertas: hero, cards, modal publicar, filtros
+═══════════════════════════════════════════════════════════════ */
+
+/* ── HERO ────────────────────────────────────────────────────── */
+.ofertas-hero {
+    background: linear-gradient(135deg, var(--negro) 60%, #1A1A1A);
+    border-bottom: 4px solid var(--amarillo);
+    padding: 32px 0 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ofertas-hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 40px,
+      rgba(255,184,0,.02) 40px, rgba(255,184,0,.02) 42px
+    );
+    pointer-events: none;
+  }
+  .ofertas-hero-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .ofertas-hero-left { flex: 1; }
+  
+  .ofertas-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,184,0,.15);
+    border: 1.5px solid rgba(255,184,0,.3);
+    color: var(--amarillo);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: .72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+  }
+  .ofertas-hero-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--blanco);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .ofertas-hero-titulo span { color: var(--amarillo); }
+  .ofertas-hero-sub {
+    font-size: .92rem;
+    color: #777;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+  
+  .ofertas-hero-right { flex-shrink: 0; }
+  .of-hero-action-card {
+    background: rgba(255,255,255,.05);
+    border: 1.5px solid rgba(255,255,255,.1);
+    border-radius: var(--radio-lg);
+    padding: 22px 24px;
+    width: 240px;
+    text-align: center;
+  }
+  .of-hero-action-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--blanco);
+    margin-bottom: 4px;
+  }
+  .of-hero-action-sub {
+    font-size: .78rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* ── LAYOUT ──────────────────────────────────────────────────── */
+  .ofertas-layout {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 24px 20px 64px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+  }
+  .ofertas-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .ofertas-main    { min-width: 0; }
+  
+  /* Barra búsqueda */
+  .of-search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 16px 18px;
+    border-top: 4px solid var(--amarillo);
+    flex-wrap: wrap;
+  }
+  
+  /* ── FILTROS SIDEBAR ─────────────────────────────────────────── */
+  .of-vista-btn {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--gris-cla);
+    border-radius: 8px;
+    background: var(--fondo);
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--gris-med);
+    cursor: pointer;
+    transition: var(--trans);
+    text-align: left;
+    margin-bottom: 6px;
+  }
+  .of-vista-btn:hover  { border-color: #BBB; background: var(--blanco); color: var(--negro); }
+  .of-vista-btn.active { background: var(--negro); color: var(--amarillo); border-color: var(--negro); }
+  
+  .of-tipo-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .of-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--negro);
+    cursor: pointer;
+  }
+  .of-check input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--amarillo);
+    flex-shrink: 0;
+  }
+  
+  .of-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--negro);
+    cursor: pointer;
+  }
+  .of-switch-label input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--amarillo);
+  }
+  
+  /* ── GRID OFERTAS ────────────────────────────────────────────── */
+  .ofertas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+  
+  /* ── CARD OFERTA ─────────────────────────────────────────────── */
+  .of-card {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 20px;
+    border: 2px solid transparent;
+    border-left: 5px solid var(--gris-cla);
+    transition: var(--trans);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .of-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-md);
+    border-color: var(--amarillo);
+    border-left-color: var(--amarillo);
+  }
+  .of-card-urgente     { border-left-color: var(--rojo) !important; }
+  .of-card-urgente:hover { border-color: var(--rojo) !important; }
+  .of-card-postulada   { border-left-color: var(--verde) !important; }
+  
+  /* Card head */
+  .of-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .of-empresa-avatar {
+    width: 42px; height: 42px;
+    background: var(--fondo);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--gris-cla);
+  }
+  .of-card-head-info   { flex: 1; min-width: 0; }
+  .of-empresa-nombre   { font-size: .82rem; font-weight: 700; color: var(--negro); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .of-fecha-pub        { font-size: .72rem; color: #AAA; margin-top: 1px; }
+  
+  /* Badges */
+  .of-badge-urgente {
+    background: var(--rojo);
+    color: var(--blanco);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: .65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .of-badge-nueva {
+    background: var(--azul);
+    color: var(--blanco);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: .65rem;
+    font-weight: 900;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  
+  /* Título */
+  .of-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--negro);
+    line-height: 1.2;
+  }
+  
+  /* Meta grid */
+  .of-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 10px;
+    background: var(--fondo);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .of-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--gris-med);
+  }
+  .of-meta-item span { font-size: 13px; flex-shrink: 0; }
+  
+  /* Descripción */
+  .of-descripcion {
+    font-size: .85rem;
+    color: var(--gris-med);
+    line-height: 1.55;
+  }
+  
+  /* Footer */
+  .of-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1.5px solid var(--gris-cla);
+    flex-wrap: wrap;
+  }
+  .of-postulantes-info { display: flex; align-items: baseline; gap: 3px; }
+  .of-post-num   { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--negro); }
+  .of-post-label { font-size: .72rem; color: var(--gris-med); font-weight: 600; }
+  .of-btns       { display: flex; gap: 8px; flex-wrap: wrap; }
+  
+  .of-fecha-inicio {
+    font-size: .78rem;
+    color: var(--gris-med);
+    padding-top: 4px;
+  }
+  .of-fecha-inicio strong { color: var(--negro); }
+  
+  /* Botón postular */
+  .btn-postular {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: var(--amarillo);
+    color: var(--negro);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .92rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--trans);
+  }
+  .btn-postular:hover { background: var(--amarillo-d); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(255,184,0,.35); }
+  
+  /* ── MODAL PUBLICAR ──────────────────────────────────────────── */
+  .modal-publicar-box {
+    max-width: 640px !important;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: left !important;
+  }
+  .modal-titulo-pub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--negro);
+  }
+  .pub-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .pub-span-2 { grid-column: 1 / -1; }
+  
+  /* ── MODAL VER OFERTA ────────────────────────────────────────── */
+  .modal-oferta-box {
+    max-width: 580px !important;
+    max-height: 88vh;
+    overflow-y: auto;
+    text-align: left !important;
+  }
+  .of-detalle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1.5px solid var(--gris-cla);
+    border-radius: var(--radio);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .of-detalle-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 14px;
+    border-right: 1.5px solid var(--gris-cla);
+    border-bottom: 1.5px solid var(--gris-cla);
+    font-size: .88rem;
+  }
+  .of-detalle-item:nth-child(2n) { border-right: none; }
+  .of-det-label { font-size: .72rem; font-weight: 700; color: var(--gris-med); text-transform: uppercase; letter-spacing: .5px; }
+  .of-detalle-section {
+    background: var(--fondo);
+    border-radius: var(--radio);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .of-detalle-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--negro);
+    margin-bottom: 8px;
+  }
+  
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 1000px) {
+    .ofertas-layout { grid-template-columns: 1fr; }
+    .ofertas-sidebar { display: none; }
+  }
+  @media (max-width: 720px) {
+    .ofertas-hero-inner { flex-direction: column; }
+    .ofertas-hero-right { width: 100%; }
+    .of-hero-action-card { width: 100%; }
+    .ofertas-grid { grid-template-columns: 1fr; }
+    .of-search-bar { flex-direction: column; }
+    .pub-form-grid { grid-template-columns: 1fr; }
+    .of-detalle-grid { grid-template-columns: 1fr; }
+    .of-detalle-item { border-right: none; }
+  }

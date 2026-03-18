@@ -1,0 +1,364 @@
+/* ═══════════════════════════════════════════════════════════════
+   CONSTRULINKER — urgencias.css
+   Bolsa de urgencias: hero, cards urgentes, ticker, badges
+═══════════════════════════════════════════════════════════════ */
+
+/* ── HERO ────────────────────────────────────────────────────── */
+.urgencias-hero {
+    background: var(--negro);
+    border-bottom: 4px solid var(--amarillo);
+    padding: 36px 0 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .urgencias-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: var(--amarillo);
+    border-radius: 50%;
+    opacity: .04;
+    pointer-events: none;
+  }
+  /* Patrón de rayas diagonales sutil */
+  .urgencias-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 18px,
+      rgba(255,184,0,.03) 18px, rgba(255,184,0,.03) 20px
+    );
+    pointer-events: none;
+  }
+  
+  .urgencias-hero-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .urgencias-hero-left { flex: 1; }
+  
+  .urgencias-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amarillo);
+    color: var(--negro);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: .75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+    animation: pulsoUrg 2s infinite;
+  }
+  @keyframes pulsoUrg {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,184,0,.5); }
+    50%      { box-shadow: 0 0 0 8px rgba(255,184,0,0); }
+  }
+  
+  .urgencias-hero-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--blanco);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .urgencias-hero-titulo span { color: var(--amarillo); }
+  
+  .urgencias-hero-sub {
+    font-size: .95rem;
+    color: #888;
+    line-height: 1.65;
+    max-width: 500px;
+    margin-bottom: 22px;
+  }
+  
+  /* Stats hero */
+  .urgencias-stats-row {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .urg-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .urg-stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--amarillo);
+    line-height: 1;
+  }
+  .urg-stat-label {
+    font-size: .72rem;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+  }
+  
+  /* Panel derecho hero */
+  .urgencias-hero-right {
+    flex-shrink: 0;
+    width: 240px;
+    background: rgba(255,255,255,.04);
+    border: 1.5px solid rgba(255,255,255,.08);
+    border-radius: var(--radio-lg);
+    padding: 18px;
+    text-align: center;
+  }
+  .urgencias-clock       { font-size: 40px; margin-bottom: 4px; }
+  .urgencias-clock-label {
+    font-size: .72rem;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  
+  /* Ticker */
+  .urgencias-ticker {
+    background: rgba(0,0,0,.3);
+    border-radius: var(--radio);
+    padding: 12px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    animation: fadeInUp .4s ease;
+  }
+  .ticker-emoji  { font-size: 26px; flex-shrink: 0; }
+  .ticker-nombre { font-size: .88rem; font-weight: 700; color: var(--blanco); text-align: left; }
+  .ticker-oficio { font-size: .72rem; color: #777; text-align: left; margin-top: 2px; }
+  .ticker-now    {
+    margin-left: auto;
+    background: var(--rojo);
+    color: var(--blanco);
+    border-radius: 6px;
+    padding: 2px 7px;
+    font-size: .65rem;
+    font-weight: 900;
+    flex-shrink: 0;
+    animation: parpadeo 1.2s infinite;
+  }
+  
+  /* ── LAYOUT ──────────────────────────────────────────────────── */
+  .urgencias-layout {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 24px 20px 64px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+  }
+  
+  .urgencias-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .urgencias-main    { min-width: 0; }
+  
+  /* Barra búsqueda urgente */
+  .urg-search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 16px 18px;
+    border-top: 4px solid var(--amarillo);
+  }
+  
+  /* ── FILTROS DISPONIBILIDAD ──────────────────────────────────── */
+  .urg-filtro-disp {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .urg-fil-btn {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--gris-cla);
+    border-radius: 8px;
+    background: var(--fondo);
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--gris-med);
+    cursor: pointer;
+    transition: var(--trans);
+    text-align: left;
+  }
+  .urg-fil-btn:hover { border-color: #BBB; background: var(--blanco); color: var(--negro); }
+  .urg-fil-btn.active { background: var(--negro); color: var(--amarillo); border-color: var(--negro); }
+  
+  /* ── CÓMO FUNCIONA ───────────────────────────────────────────── */
+  .urg-como { background: var(--negro) !important; }
+  .urg-como .sidebar-section-title { color: var(--amarillo) !important; }
+  .urg-pasos {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .urg-pasos li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: .82rem;
+    color: #AAA;
+    line-height: 1.45;
+  }
+  .urg-pasos li span {
+    width: 22px; height: 22px;
+    background: var(--amarillo);
+    color: var(--negro);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem;
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  
+  /* ── GRID DE CARDS ───────────────────────────────────────────── */
+  .urgencias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  
+  /* ── CARD URGENTE ────────────────────────────────────────────── */
+  .urg-card {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: var(--trans);
+    display: flex;
+    flex-direction: column;
+  }
+  .urg-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-md);
+    border-color: var(--amarillo);
+  }
+  .urg-card-revelada { border-color: var(--verde) !important; }
+  
+  /* Franja superior de urgencia */
+  .urg-card-franja {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    font-size: .82rem;
+    font-weight: 700;
+  }
+  .urg-hoy    { background: #2C0A0A; color: #FFB3B3; }
+  .urg-manana { background: #2C1800; color: #FFDDB3; }
+  .urg-semana { background: #0A2C0A; color: #B3FFB3; }
+  
+  .urg-franja-ico { font-size: 14px; }
+  .urg-badge-urgente {
+    margin-left: auto;
+    background: var(--amarillo);
+    color: var(--negro);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .8px;
+  }
+  
+  .urg-card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  
+  /* Botón de contacto urgente */
+  .btn-urg-contacto {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--negro);
+    color: var(--blanco);
+    border: none;
+    border-radius: var(--radio);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--trans);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-urg-contacto::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--amarillo);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+    z-index: 0;
+  }
+  .btn-urg-contacto:hover::after { transform: scaleX(1); }
+  .btn-urg-contacto:hover { color: var(--negro); }
+  .btn-urg-contacto > * { position: relative; z-index: 1; }
+  
+  .urg-card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: auto;
+  }
+  
+  /* Badge disponibilidad en modal */
+  .urg-disp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: .82rem;
+    font-weight: 700;
+  }
+  .urg-disp-badge.urg-hoy    { background: #2C0A0A; color: #FFB3B3; }
+  .urg-disp-badge.urg-manana { background: #2C1800; color: #FFDDB3; }
+  .urg-disp-badge.urg-semana { background: #0A2C0A; color: #B3FFB3; }
+  
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 1000px) {
+    .urgencias-layout { grid-template-columns: 1fr; }
+    .urgencias-sidebar { display: none; }
+  }
+  @media (max-width: 720px) {
+    .urgencias-hero-inner  { flex-direction: column; }
+    .urgencias-hero-right  { width: 100%; }
+    .urgencias-hero-titulo { font-size: 1.8rem; }
+    .urgencias-grid        { grid-template-columns: 1fr; }
+    .urg-search-bar        { flex-direction: column; }
+  }

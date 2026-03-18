@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ofertas de Trabajo — Construlinker</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/feed.css"/>
+  <link rel="stylesheet" href="css/ofertas.css"/>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="app-header">
+  <div class="header-inner">
+    <a href="feed.html" class="logo">
+      <div class="logo-icon">🏗️</div>
+      <div class="logo-text">Constru<span>linker</span></div>
+    </a>
+    <nav class="header-nav">
+      <a href="feed.html"                class="nav-link">🔍 Buscar</a>
+      <a href="urgencias.html"           class="nav-link">⚡ Urgencias</a>
+      <a href="ofertas.html"             class="nav-link">📋 Ofertas</a>
+      <a href="dashboard.html"           class="nav-link">🏢 Mi Empresa</a>
+      <a href="dashboard.html#historial" class="nav-link">📊 Historial</a>
+      <a href="dashboard.html#creditos"  class="nav-link">🛒 Créditos</a>
+    </nav>
+    <div class="header-right">
+      <div class="wallet-chip" onclick="window.location.href='dashboard.html#creditos'">
+        <span>🪙</span>
+        <div>
+          <div class="wallet-label-sm">Créditos</div>
+          <div class="wallet-count" id="creditos-count">10</div>
+        </div>
+      </div>
+      <div class="user-badge">
+        <div class="user-avatar-sm" id="header-avatar">🏢</div>
+        <span class="user-name-sm" id="header-username">Usuario</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 Salir</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO OFERTAS ── -->
+<div class="ofertas-hero">
+  <div class="ofertas-hero-inner">
+    <div class="ofertas-hero-left">
+      <div class="ofertas-hero-badge" id="hero-badge">📋 OFERTAS PUBLICADAS</div>
+      <h1 class="ofertas-hero-titulo" id="hero-titulo">
+        Encuentra tu próximo<br><span>trabajo en obra</span>
+      </h1>
+      <p class="ofertas-hero-sub" id="hero-sub">
+        Ofertas publicadas directamente por empresas constructoras. Postúlate con un clic y espera ser contactado.
+      </p>
+    </div>
+    <div class="ofertas-hero-right" id="hero-action">
+      <!-- Generado por JS según tipo de usuario -->
+    </div>
+  </div>
+</div>
+
+<!-- ── LAYOUT ── -->
+<div class="ofertas-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="ofertas-sidebar">
+
+    <!-- Filtro por tipo de usuario (empresa: mis ofertas / trabajador: recomendadas) -->
+    <div class="sidebar-card" id="sidebar-vista-card">
+      <div class="sidebar-section-title">👁 Vista</div>
+      <div class="of-vista-btns" id="vista-btns">
+        <!-- Generado por JS -->
+      </div>
+    </div>
+
+    <!-- Categorías -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">📁 Categoría</div>
+      <ul class="cat-list">
+        <li class="cat-item active" onclick="filtrarCatOf(this,'')"                     data-cat="">
+          <span>🔍 Todas</span><span class="cat-count" id="of-cnt-all">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatOf(this,'Obra Gruesa')"                 data-cat="Obra Gruesa">
+          <span>🧱 Obra Gruesa</span><span class="cat-count" id="of-cnt-og">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatOf(this,'Acabados')"                    data-cat="Acabados">
+          <span>🎨 Acabados</span><span class="cat-count" id="of-cnt-ac">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatOf(this,'Instalaciones')"               data-cat="Instalaciones">
+          <span>⚡ Instalaciones</span><span class="cat-count" id="of-cnt-in">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatOf(this,'Maquinaria y Transporte')"     data-cat="Maquinaria y Transporte">
+          <span>🚜 Maquinaria</span><span class="cat-count" id="of-cnt-mq">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatOf(this,'Técnicos y Gestión')"          data-cat="Técnicos y Gestión">
+          <span>📋 Técnicos</span><span class="cat-count" id="of-cnt-tg">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatOf(this,'Auxiliares')"                  data-cat="Auxiliares">
+          <span>🦺 Auxiliares</span><span class="cat-count" id="of-cnt-aux">0</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tipo de contrato -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">💼 Tipo de contrato</div>
+      <div class="of-tipo-filtros">
+        <label class="of-check"><input type="checkbox" value="Planilla"       onchange="aplicarFiltrosOf()"/> 📄 En planilla</label>
+        <label class="of-check"><input type="checkbox" value="Por obra"       onchange="aplicarFiltrosOf()"/> 🔨 Por obra</label>
+        <label class="of-check"><input type="checkbox" value="Tiempo completo" onchange="aplicarFiltrosOf()"/> ⏰ Tiempo completo</label>
+      </div>
+    </div>
+
+    <!-- Solo urgentes -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">⚡ Urgencia</div>
+      <label class="of-switch-label">
+        <input type="checkbox" id="solo-urgentes" onchange="aplicarFiltrosOf()"/>
+        <span>Mostrar solo urgentes</span>
+      </label>
+    </div>
+
+    <!-- Stats -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">📊 Resumen</div>
+      <div class="quick-stats">
+        <div class="q-stat">
+          <div class="q-stat-num" id="of-total">0</div>
+          <div class="q-stat-label">Ofertas activas</div>
+        </div>
+        <div class="q-stat">
+          <div class="q-stat-num" id="of-urgentes">0</div>
+          <div class="q-stat-label">Urgentes</div>
+        </div>
+        <div class="q-stat">
+          <div class="q-stat-num" id="of-mis">0</div>
+          <div class="q-stat-label">Mis postulaciones</div>
+        </div>
+        <div class="q-stat">
+          <div class="q-stat-num" id="of-empresas">0</div>
+          <div class="q-stat-label">Empresas</div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ofertas-main">
+
+    <!-- Barra de búsqueda -->
+    <div class="of-search-bar">
+      <div class="search-input-wrap" style="flex:1">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="of-search" class="search-input"
+          placeholder="Busca por oficio, empresa o zona…"/>
+      </div>
+      <select class="cat-select" id="of-zona-select">
+        <option value="">📍 Todas las zonas</option>
+        <option>Miraflores, Lima</option>
+        <option>San Miguel, Lima</option>
+        <option>Surquillo, Lima</option>
+        <option>Barranco, Lima</option>
+        <option>Villa El Salvador, Lima</option>
+        <option>Lurín, Lima</option>
+        <option>San Isidro, Lima</option>
+        <option>Los Olivos, Lima</option>
+        <option>Callao</option>
+      </select>
+      <button class="btn-search" onclick="aplicarFiltrosOf()">🔍 Buscar</button>
+    </div>
+
+    <!-- Results bar -->
+    <div class="results-bar" style="margin-bottom:14px">
+      <div>
+        <div class="results-title" id="of-results-title">Todas las Ofertas</div>
+        <div class="results-count" id="of-results-count">0 ofertas encontradas</div>
+      </div>
+      <div class="sort-wrap">
+        🔃
+        <select class="sort-select" id="of-sort" onchange="aplicarFiltrosOf()">
+          <option value="reciente">Más recientes</option>
+          <option value="urgente">Urgentes primero</option>
+          <option value="postulantes">Más postulantes</option>
+          <option value="salario">Mayor salario</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grid de ofertas -->
+    <div class="ofertas-grid" id="ofertas-container">
+      <!-- Generado por ofertas.js -->
+    </div>
+
+  </main>
+
+</div><!-- .ofertas-layout -->
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL: PUBLICAR OFERTA (solo empresa)
+════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-publicar" style="display:none">
+  <div class="modal-box modal-publicar-box">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <div>
+        <div class="modal-titulo-pub">📋 Publicar Oferta de Trabajo</div>
+        <div style="font-size:.82rem;color:var(--gris-med)">Gratis · Visible para todos los trabajadores</div>
+      </div>
+      <button onclick="cerrarModalPublicar()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#AAA">✖</button>
+    </div>
+
+    <div class="login-error" id="error-publicar"></div>
+
+    <div class="pub-form-grid">
+      <div class="form-group pub-span-2">
+        <label class="form-label">📝 Título de la oferta *</label>
+        <input type="text" class="form-input" id="pub-titulo"
+          placeholder="Ej: Albañil Oficial de Primera — Proyecto Residencial"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">📁 Categoría *</label>
+        <select class="form-select" id="pub-categoria">
+          <option value="">Seleccionar…</option>
+          <option value="Obra Gruesa">🧱 Obra Gruesa</option>
+          <option value="Acabados">🎨 Acabados</option>
+          <option value="Instalaciones">⚡ Instalaciones</option>
+          <option value="Maquinaria y Transporte">🚜 Maquinaria y Transporte</option>
+          <option value="Técnicos y Gestión">📋 Técnicos y Gestión</option>
+          <option value="Auxiliares">🦺 Auxiliares</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">📍 Zona / Dirección *</label>
+        <input type="text" class="form-input" id="pub-zona"
+          placeholder="Ej: Miraflores, Lima"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">💰 Salario / Jornal</label>
+        <input type="text" class="form-input" id="pub-salario"
+          placeholder="Ej: S/. 80-100 / día  o  S/. 3,500/mes"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">💼 Tipo de contrato</label>
+        <select class="form-select" id="pub-tipo">
+          <option value="Por obra">🔨 Por obra</option>
+          <option value="Tiempo completo">⏰ Tiempo completo</option>
+          <option value="Planilla">📄 Planilla</option>
+          <option value="Destajo">🎯 Destajo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">👷 Nº de trabajadores necesarios</label>
+        <input type="number" class="form-input" id="pub-cantidad"
+          placeholder="Ej: 3" min="1" max="50"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">⏱ Duración estimada</label>
+        <input type="text" class="form-input" id="pub-duracion"
+          placeholder="Ej: 3 meses, 6 meses…"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">📅 Fecha de inicio</label>
+        <input type="text" class="form-input" id="pub-fecha-inicio"
+          placeholder="Ej: Inmediato, Lunes 20 enero…"/>
+      </div>
+      <div class="form-group pub-span-2">
+        <label class="form-label">📄 Descripción del trabajo *</label>
+        <textarea class="form-textarea" id="pub-descripcion" rows="4"
+          placeholder="Describe el trabajo, las condiciones, el proyecto, ambiente laboral…"></textarea>
+      </div>
+      <div class="form-group pub-span-2">
+        <label class="form-label">✅ Requisitos (uno por línea)</label>
+        <textarea class="form-textarea" id="pub-requisitos" rows="3"
+          placeholder="Mínimo 5 años de experiencia&#10;Disponibilidad inmediata&#10;Con documentación al día"></textarea>
+      </div>
+      <div class="form-group pub-span-2">
+        <label class="form-label">🏷️ Etiquetas (separadas por coma)</label>
+        <input type="text" class="form-input" id="pub-tags"
+          placeholder="Ej: Albañil, Tarrajeo, Encofrado"/>
+      </div>
+      <div class="form-group pub-span-2">
+        <label class="of-switch-label" style="font-size:.95rem">
+          <input type="checkbox" id="pub-urgente"/>
+          <span>⚡ Marcar como urgente (aparece primero en búsquedas)</span>
+        </label>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:6px">
+      <button class="btn-secondary" onclick="cerrarModalPublicar()">✖ Cancelar</button>
+      <button class="btn-primary" style="flex:1;justify-content:center"
+        id="btn-publicar" onclick="publicarOfertaForm()">
+        📋 Publicar Oferta Gratis
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL: VER OFERTA COMPLETA
+════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-ver-oferta" style="display:none">
+  <div class="modal-box modal-oferta-box">
+    <div id="modal-oferta-content">
+      <!-- Generado por JS -->
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/ofertas.js"></script>
+</body>
+</html>

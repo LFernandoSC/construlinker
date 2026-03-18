@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bolsa de Urgencias — Construlinker</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/feed.css"/>
+  <link rel="stylesheet" href="css/urgencias.css"/>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="app-header">
+  <div class="header-inner">
+    <a href="feed.html" class="logo">
+      <div class="logo-icon">🏗️</div>
+      <div class="logo-text">Constru<span>linker</span></div>
+    </a>
+    <nav class="header-nav">
+      <a href="feed.html"                class="nav-link">🔍 Buscar</a>
+      <a href="urgencias.html"           class="nav-link">⚡ Urgencias</a>
+      <a href="dashboard.html"           class="nav-link">🏢 Mi Empresa</a>
+      <a href="dashboard.html#historial" class="nav-link">📋 Historial</a>
+      <a href="dashboard.html#creditos"  class="nav-link">🛒 Créditos</a>
+    </nav>
+    <div class="header-right">
+      <div class="wallet-chip" onclick="window.location.href='dashboard.html#creditos'">
+        <span>🪙</span>
+        <div>
+          <div class="wallet-label-sm">Créditos</div>
+          <div class="wallet-count" id="creditos-count">10</div>
+        </div>
+      </div>
+      <div class="user-badge">
+        <div class="user-avatar-sm">🏢</div>
+        <span class="user-name-sm" id="header-username">Empresa</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 Salir</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO URGENCIAS ── -->
+<div class="urgencias-hero">
+  <div class="urgencias-hero-inner">
+    <div class="urgencias-hero-left">
+      <div class="urgencias-badge">⚡ BOLSA DE URGENCIAS</div>
+      <h1 class="urgencias-hero-titulo">
+        Trabajadores que pueden<br>
+        <span>empezar hoy mismo</span>
+      </h1>
+      <p class="urgencias-hero-sub">
+        Profesionales verificados con disponibilidad inmediata. Filtra por oficio, contáctalos en minutos y cubre tu necesidad de personal hoy.
+      </p>
+      <div class="urgencias-stats-row">
+        <div class="urg-stat">
+          <div class="urg-stat-num" id="total-urgentes">0</div>
+          <div class="urg-stat-label">Disponibles ahora</div>
+        </div>
+        <div class="urg-stat">
+          <div class="urg-stat-num" id="total-hoy">0</div>
+          <div class="urg-stat-label">Pueden entrar hoy</div>
+        </div>
+        <div class="urg-stat">
+          <div class="urg-stat-num">🪙 1</div>
+          <div class="urg-stat-label">Crédito por contacto</div>
+        </div>
+      </div>
+    </div>
+    <div class="urgencias-hero-right">
+      <div class="urgencias-clock">⏱️</div>
+      <div class="urgencias-clock-label">Actualizado ahora</div>
+      <div class="urgencias-ticker" id="urgencias-ticker">
+        <!-- Ticker generado por JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SEMÁFORO ── -->
+<div class="semaforo-banner semaforo-normal" id="semaforo-banner" style="display:none">
+  <span class="semaforo-ico">⚠️</span>
+  <span class="semaforo-msg" id="semaforo-msg"></span>
+  <button class="btn-primary" style="margin-left:auto;padding:9px 18px;font-size:.88rem"
+    onclick="abrirModalCompraUrg()">🛒 Comprar Créditos</button>
+</div>
+
+<!-- ── CONTENIDO PRINCIPAL ── -->
+<div class="urgencias-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="urgencias-sidebar">
+
+    <!-- Wallet -->
+    <div class="sidebar-card sidebar-wallet">
+      <div class="sidebar-section-title" style="color:#888">🪙 Tu Billetera</div>
+      <div class="wallet-display">
+        <div class="wallet-big-num" id="wallet-urg-num">10</div>
+        <div class="wallet-big-label">Créditos disponibles</div>
+        <div class="wallet-barra">
+          <div class="wallet-progreso" id="wallet-urg-prog" style="width:100%"></div>
+        </div>
+      </div>
+      <button class="btn-recargar" onclick="abrirModalCompraUrg()">🛒 Recargar</button>
+    </div>
+
+    <!-- Filtro rápido por disponibilidad -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">⏱ Cuándo pueden entrar</div>
+      <div class="urg-filtro-disp">
+        <button class="urg-fil-btn active" data-disp="todos"      onclick="filtrarDisp(this,'todos')">
+          🔍 Todos
+        </button>
+        <button class="urg-fil-btn"        data-disp="Hoy"        onclick="filtrarDisp(this,'Hoy')">
+          🔴 Hoy mismo
+        </button>
+        <button class="urg-fil-btn"        data-disp="Mañana"     onclick="filtrarDisp(this,'Mañana')">
+          🟡 Mañana
+        </button>
+        <button class="urg-fil-btn"        data-disp="Esta semana" onclick="filtrarDisp(this,'Esta semana')">
+          🟢 Esta semana
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtro por categoría -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">📁 Categoría</div>
+      <ul class="cat-list" id="urg-cat-list">
+        <li class="cat-item active" onclick="filtrarCatUrg(this,'')"                     data-cat="">
+          <span>🔍 Todas</span><span class="cat-count" id="cnt-todas">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatUrg(this,'Obra Gruesa')"                 data-cat="Obra Gruesa">
+          <span>🧱 Obra Gruesa</span><span class="cat-count" id="cnt-og">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatUrg(this,'Acabados')"                    data-cat="Acabados">
+          <span>🎨 Acabados</span><span class="cat-count" id="cnt-ac">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatUrg(this,'Instalaciones')"               data-cat="Instalaciones">
+          <span>⚡ Instalaciones</span><span class="cat-count" id="cnt-in">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatUrg(this,'Maquinaria y Transporte')"     data-cat="Maquinaria y Transporte">
+          <span>🚜 Maquinaria</span><span class="cat-count" id="cnt-mq">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatUrg(this,'Técnicos y Gestión')"          data-cat="Técnicos y Gestión">
+          <span>📋 Técnicos</span><span class="cat-count" id="cnt-tg">0</span>
+        </li>
+        <li class="cat-item" onclick="filtrarCatUrg(this,'Auxiliares')"                  data-cat="Auxiliares">
+          <span>🦺 Auxiliares</span><span class="cat-count" id="cnt-aux">0</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Cómo funciona -->
+    <div class="sidebar-card urg-como">
+      <div class="sidebar-section-title">❓ ¿Cómo funciona?</div>
+      <ol class="urg-pasos">
+        <li><span>1</span> Filtra por oficio y cuándo puede entrar</li>
+        <li><span>2</span> Haz clic en "Ver Contacto" (1 crédito)</li>
+        <li><span>3</span> Escríbele por WhatsApp directamente</li>
+        <li><span>4</span> ¡Confirmado en minutos!</li>
+      </ol>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="urgencias-main">
+
+    <!-- Barra de búsqueda rápida -->
+    <div class="urg-search-bar">
+      <div class="search-input-wrap" style="flex:1">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="urg-search" class="search-input"
+          placeholder="Busca por oficio, zona o habilidad…"/>
+      </div>
+      <button class="btn-search" onclick="aplicarFiltrosUrg()">⚡ Buscar urgente</button>
+    </div>
+
+    <!-- Results bar -->
+    <div class="results-bar" style="margin-bottom:14px">
+      <div>
+        <div class="results-title" id="urg-results-title">
+          ⚡ Disponibles para entrar hoy o esta semana
+        </div>
+        <div class="results-count" id="urg-results-count">0 perfiles urgentes</div>
+      </div>
+      <div class="sort-wrap">
+        🔃
+        <select class="sort-select" id="urg-sort" onchange="aplicarFiltrosUrg()">
+          <option value="hoy">Hoy primero</option>
+          <option value="rating">Mejor valorados</option>
+          <option value="exp">Más experiencia</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grid de cards urgentes -->
+    <div class="urgencias-grid" id="urgencias-container">
+      <!-- Generado por urgencias.js -->
+    </div>
+
+  </main>
+
+</div><!-- urgencias-layout -->
+
+<!-- ── MODAL CONTACTO ── -->
+<div class="modal-overlay" id="modal-urg-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-ico">⚡</div>
+    <h2 class="modal-title">Contacto urgente</h2>
+    <div style="background:var(--fondo);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:left">
+      <div style="font-size:.78rem;font-weight:700;color:var(--gris-med);text-transform:uppercase;margin-bottom:4px">Trabajador</div>
+      <div style="font-weight:800;font-size:1.05rem" id="murg-nombre">—</div>
+      <div style="font-size:.88rem;color:var(--gris-med)" id="murg-oficio">—</div>
+      <div class="urg-disp-badge" id="murg-disp" style="margin-top:8px">—</div>
+    </div>
+    <div class="modal-cost">🪙 Se descontará <strong>1 Crédito</strong></div>
+    <p class="modal-saldo">
+      Saldo actual: <strong id="murg-saldo">—</strong> →
+      quedarás con <strong id="murg-saldo-post">—</strong>
+    </p>
+    <div class="modal-btns">
+      <button class="btn-cancelar"  onclick="cerrarModalUrg()">✖ Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarContactoUrg()">⚡ Confirmar · 1 Crédito</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL COMPRA ── -->
+<div class="modal-overlay" id="modal-compra-urg" style="display:none">
+  <div class="modal-box" style="max-width:580px">
+    <div class="modal-ico">💳</div>
+    <h2 class="modal-title">Recargar Créditos</h2>
+    <p class="modal-body">Necesitas créditos para contactar candidatos urgentes.</p>
+    <div class="compra-grid" id="packs-urg-container"></div>
+    <button class="btn-secondary" style="width:100%" onclick="cerrarModalCompraUrg()">✖ Ahora no</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/urgencias.js"></script>
+</body>
+</html>
