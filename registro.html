@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crear Cuenta — Construlinker</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/login.css"/>
+  <link rel="stylesheet" href="css/registro.css"/>
+</head>
+<body>
+
+<div class="registro-page">
+
+  <!-- ── PANEL IZQUIERDO: BRANDING ── -->
+  <aside class="login-brand">
+    <div class="brand-stripes"></div>
+
+    <div class="brand-header">
+      <div class="brand-logo">
+        <div class="brand-logo-icon">🏗️</div>
+        <div class="brand-logo-text">Constru<span>linker</span></div>
+      </div>
+      <h1 class="brand-tagline">
+        Únete a la red<br>
+        <em>más grande del sector</em>
+      </h1>
+      <p class="brand-sub">
+        Crea tu cuenta gratis en menos de 2 minutos y empieza a conectar con los mejores profesionales de la construcción en Perú.
+      </p>
+    </div>
+
+    <div class="brand-features">
+      <div class="feature-pill">
+        <div class="feature-pill-icon">🏢</div>
+        <div class="feature-pill-text">
+          <div class="feature-pill-title">Para Empresas</div>
+          <div class="feature-pill-sub">Accede a +1,200 perfiles verificados</div>
+        </div>
+      </div>
+      <div class="feature-pill">
+        <div class="feature-pill-icon">👷</div>
+        <div class="feature-pill-text">
+          <div class="feature-pill-title">Para Trabajadores</div>
+          <div class="feature-pill-sub">Recibe ofertas de empresas reales</div>
+        </div>
+      </div>
+      <div class="feature-pill">
+        <div class="feature-pill-icon">🎁</div>
+        <div class="feature-pill-text">
+          <div class="feature-pill-title">Bienvenida gratis</div>
+          <div class="feature-pill-sub">Empresas reciben 5 créditos al registrarse</div>
+        </div>
+      </div>
+      <div class="feature-pill">
+        <div class="feature-pill-icon">🔒</div>
+        <div class="feature-pill-text">
+          <div class="feature-pill-title">100% seguro</div>
+          <div class="feature-pill-sub">Datos protegidos · Sin spam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      © 2025 Construlinker · Lima, Perú · v1.0
+    </div>
+  </aside>
+
+  <!-- ── PANEL DERECHO: FORMULARIO ── -->
+  <main class="registro-form-side">
+
+    <!-- Selector tipo usuario -->
+    <div class="registro-tipo-selector" id="paso-tipo">
+      <div class="reg-header">
+        <h2 class="login-title">Crear cuenta</h2>
+        <p class="login-sub">¿Cómo quieres usar Construlinker?</p>
+      </div>
+
+      <div class="tipo-cards-grid">
+        <div class="tipo-card" id="card-empresa" onclick="seleccionarTipoReg('empresa')">
+          <div class="tipo-card-ico">🏢</div>
+          <div class="tipo-card-titulo">Soy Empresa</div>
+          <div class="tipo-card-sub">Constructora, subcontrata o empresa de reformas</div>
+          <ul class="tipo-card-lista">
+            <li>✅ Busca trabajadores calificados</li>
+            <li>✅ Contacta directamente por WhatsApp</li>
+            <li>✅ 5 créditos de bienvenida gratis</li>
+            <li>✅ Publica ofertas de trabajo</li>
+          </ul>
+          <div class="tipo-card-cta">Registrarme como Empresa →</div>
+        </div>
+
+        <div class="tipo-card" id="card-trabajador" onclick="seleccionarTipoReg('trabajador')">
+          <div class="tipo-card-ico">👷</div>
+          <div class="tipo-card-titulo">Soy Trabajador</div>
+          <div class="tipo-card-sub">Profesional o técnico del sector construcción</div>
+          <ul class="tipo-card-lista">
+            <li>✅ Crea tu perfil profesional</li>
+            <li>✅ Recibe ofertas de empresas</li>
+            <li>✅ Muestra tu experiencia y docs</li>
+            <li>✅ Controla tu disponibilidad</li>
+          </ul>
+          <div class="tipo-card-cta">Registrarme como Trabajador →</div>
+        </div>
+      </div>
+
+      <div class="reg-login-link">
+        ¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a>
+      </div>
+    </div>
+
+    <!-- ── FORMULARIO EMPRESA ── -->
+    <div class="registro-form-wrap" id="form-empresa" style="display:none">
+
+      <div class="reg-back-btn" onclick="volverATipos()">← Cambiar tipo de cuenta</div>
+
+      <div class="reg-tipo-badge reg-tipo-empresa">🏢 Registro de Empresa</div>
+      <h2 class="login-title">Datos de tu empresa</h2>
+      <p class="login-sub">Completa la información para activar tu cuenta.</p>
+
+      <!-- Progreso -->
+      <div class="reg-progreso">
+        <div class="prog-step active" id="prog-e-1">1</div>
+        <div class="prog-linea"></div>
+        <div class="prog-step" id="prog-e-2">2</div>
+        <div class="prog-linea"></div>
+        <div class="prog-step" id="prog-e-3">3</div>
+      </div>
+      <div class="reg-progreso-labels">
+        <span>Empresa</span><span>Contacto</span><span>Acceso</span>
+      </div>
+
+      <div class="login-error" id="error-empresa"></div>
+
+      <!-- PASO 1: Datos empresa -->
+      <div class="reg-paso" id="paso-e-1">
+        <div class="form-group">
+          <label class="form-label">🏢 Razón Social *</label>
+          <input type="text" class="form-input" id="e-nombre"
+            placeholder="Constructora Ejemplo S.A.C."/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🪪 RUC *</label>
+          <div class="input-icon-wrap">
+            <span class="icon-left">🪪</span>
+            <input type="text" class="form-input" id="e-ruc"
+              placeholder="20XXXXXXXXX" maxlength="11" inputmode="numeric"/>
+          </div>
+          <span class="form-hint">11 dígitos, comienza con 20</span>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">👤 Representante Legal *</label>
+            <input type="text" class="form-input" id="e-representante"
+              placeholder="Nombre completo"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">💼 Cargo *</label>
+            <input type="text" class="form-input" id="e-cargo"
+              placeholder="Gerente General"/>
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">🏗️ Sector principal</label>
+            <select class="form-select" id="e-sector">
+              <option value="">Seleccionar…</option>
+              <option>Edificación residencial</option>
+              <option>Edificación comercial</option>
+              <option>Infraestructura vial</option>
+              <option>Obras de rehabilitación</option>
+              <option>Instalaciones</option>
+              <option>Subcontrata</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">👥 Tamaño empresa</label>
+            <select class="form-select" id="e-tamaño">
+              <option value="">Seleccionar…</option>
+              <option>1-5 empleados</option>
+              <option>6-20 empleados</option>
+              <option>21-50 empleados</option>
+              <option>51-200 empleados</option>
+              <option>+200 empleados</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📍 Distrito / Provincia</label>
+          <input type="text" class="form-input" id="e-ubicacion"
+            placeholder="San Isidro, Lima"/>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center"
+          onclick="siguientePasoEmpresa(1)">Continuar →</button>
+      </div>
+
+      <!-- PASO 2: Contacto -->
+      <div class="reg-paso" id="paso-e-2" style="display:none">
+        <div class="form-group">
+          <label class="form-label">📧 Correo corporativo *</label>
+          <div class="input-icon-wrap">
+            <span class="icon-left">📧</span>
+            <input type="email" class="form-input" id="e-email"
+              placeholder="gerencia@tuempresa.com" autocomplete="email"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📞 Teléfono de contacto *</label>
+          <div class="input-icon-wrap">
+            <span class="icon-left">📞</span>
+            <input type="tel" class="form-input" id="e-telefono"
+              placeholder="+51 01 XXX-XXXX"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🌐 Sitio web (opcional)</label>
+          <div class="input-icon-wrap">
+            <span class="icon-left">🌐</span>
+            <input type="url" class="form-input" id="e-web"
+              placeholder="www.tuempresa.com"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📝 Descripción breve (opcional)</label>
+          <textarea class="form-textarea" id="e-desc" rows="3"
+            placeholder="¿A qué se dedica tu empresa? Tipo de obras, especialidades…"></textarea>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn-secondary" onclick="irPasoEmpresa(1)">← Atrás</button>
+          <button class="btn-primary" style="flex:1;justify-content:center"
+            onclick="siguientePasoEmpresa(2)">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Contraseña -->
+      <div class="reg-paso" id="paso-e-3" style="display:none">
+        <div class="reg-bienvenida-box">
+          <div style="font-size:36px">🎁</div>
+          <div>
+            <div style="font-weight:800;color:var(--negro)">¡Recibirás 5 créditos gratis!</div>
+            <div style="font-size:.82rem;color:var(--gris-med)">Al activar tu cuenta podrás contactar hasta 5 trabajadores sin costo.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔒 Contraseña *</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-input" id="e-pass"
+              placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
+            <button type="button" class="toggle-pass"
+              onclick="togglePass('e-pass','icon-e-pass')">
+              <span id="icon-e-pass">👁️</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔒 Repetir contraseña *</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-input" id="e-pass2"
+              placeholder="Repite tu contraseña" autocomplete="new-password"/>
+            <button type="button" class="toggle-pass"
+              onclick="togglePass('e-pass2','icon-e-pass2')">
+              <span id="icon-e-pass2">👁️</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="check-label">
+            <input type="checkbox" id="e-terminos"/>
+            <span>Acepto los <a href="#" onclick="return false">Términos de uso</a> y la
+            <a href="#" onclick="return false">Política de privacidad</a></span>
+          </label>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn-secondary" onclick="irPasoEmpresa(2)">← Atrás</button>
+          <button class="btn-primary" style="flex:1;justify-content:center" id="btn-reg-empresa"
+            onclick="registrarEmpresa()">🏢 Crear Cuenta de Empresa</button>
+        </div>
+      </div>
+
+    </div><!-- form-empresa -->
+
+    <!-- ── FORMULARIO TRABAJADOR ── -->
+    <div class="registro-form-wrap" id="form-trabajador" style="display:none">
+
+      <div class="reg-back-btn" onclick="volverATipos()">← Cambiar tipo de cuenta</div>
+
+      <div class="reg-tipo-badge reg-tipo-trabajador">👷 Registro de Trabajador</div>
+      <h2 class="login-title">Tu perfil profesional</h2>
+      <p class="login-sub">Así te encontrarán las empresas.</p>
+
+      <!-- Progreso -->
+      <div class="reg-progreso">
+        <div class="prog-step active" id="prog-t-1">1</div>
+        <div class="prog-linea"></div>
+        <div class="prog-step" id="prog-t-2">2</div>
+        <div class="prog-linea"></div>
+        <div class="prog-step" id="prog-t-3">3</div>
+      </div>
+      <div class="reg-progreso-labels">
+        <span>Personal</span><span>Profesional</span><span>Acceso</span>
+      </div>
+
+      <div class="login-error" id="error-trabajador"></div>
+
+      <!-- PASO 1: Datos personales -->
+      <div class="reg-paso" id="paso-t-1">
+        <div class="form-group">
+          <label class="form-label">👤 Nombre completo *</label>
+          <input type="text" class="form-input" id="t-nombre"
+            placeholder="Juan Pérez García"/>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">🪪 DNI *</label>
+            <input type="text" class="form-input" id="t-dni"
+              placeholder="XXXXXXXX" maxlength="8" inputmode="numeric"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">📅 Fecha nacimiento</label>
+            <input type="date" class="form-input" id="t-nacimiento"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📞 WhatsApp *</label>
+          <div class="input-icon-wrap">
+            <span class="icon-left">📱</span>
+            <input type="tel" class="form-input" id="t-whatsapp"
+              placeholder="+51 9XX XXX XXX"/>
+          </div>
+          <span class="form-hint">Las empresas te contactarán por aquí</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📍 Zona / Distrito donde trabajas *</label>
+          <input type="text" class="form-input" id="t-zona"
+            placeholder="Ej: San Juan de Lurigancho, Lima"/>
+        </div>
+
+        <!-- Avatar selector -->
+        <div class="form-group">
+          <label class="form-label">🖼️ Tu avatar</label>
+          <div class="avatar-selector" id="avatar-selector">
+            <div class="avatar-opt active" onclick="seleccionarAvatar(this,'👷')">👷</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🔧')">🔧</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'⚡')">⚡</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🏗️')">🏗️</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🎨')">🎨</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🔩')">🔩</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🧱')">🧱</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🪟')">🪟</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'📐')">📐</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🚜')">🚜</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🦺')">🦺</div>
+            <div class="avatar-opt" onclick="seleccionarAvatar(this,'🪚')">🪚</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;justify-content:center"
+          onclick="siguientePasoTrabajador(1)">Continuar →</button>
+      </div>
+
+      <!-- PASO 2: Datos profesionales -->
+      <div class="reg-paso" id="paso-t-2" style="display:none">
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label">🔧 Oficio principal *</label>
+            <select class="form-select" id="t-oficio">
+              <option value="">Seleccionar…</option>
+              <optgroup label="Obra Gruesa">
+                <option>Albañil / Oficial de Primera</option>
+                <option>Albañil / Oficial de Segunda</option>
+                <option>Encofrador</option>
+                <option>Ferrallista</option>
+                <option>Yesero / Escayolista</option>
+                <option>Peón de Albañilería</option>
+              </optgroup>
+              <optgroup label="Acabados">
+                <option>Pintor de Obra</option>
+                <option>Solador / Alicatador</option>
+                <option>Montador de Pladur</option>
+                <option>Colocador de Pavimentos</option>
+                <option>Colocador de Piedra Natural</option>
+                <option>Cristalero / Montador de Ventanas</option>
+                <option>Rehabilitador de Fachadas</option>
+              </optgroup>
+              <optgroup label="Instalaciones">
+                <option>Electricista de Obra</option>
+                <option>Fontanero / Instalador de Tuberías</option>
+                <option>Instalador de Climatización</option>
+                <option>Instalador de Gas</option>
+                <option>Instalador Solar / Fotovoltaico</option>
+                <option>Soldador Especializado</option>
+              </optgroup>
+              <optgroup label="Maquinaria y Transporte">
+                <option>Gruista (Torre y Móvil)</option>
+                <option>Operador de Maquinaria Pesada</option>
+                <option>Montador de Andamios</option>
+                <option>Transportista de Materiales</option>
+                <option>Conductor Camión Hormigonera</option>
+              </optgroup>
+              <optgroup label="Técnicos y Gestión">
+                <option>Arquitecto</option>
+                <option>Arquitecto Técnico / Aparejador</option>
+                <option>Ingeniero Civil</option>
+                <option>Jefe de Obra</option>
+                <option>Encargado de Obra</option>
+                <option>Técnico PRL</option>
+                <option>Topógrafo</option>
+              </optgroup>
+              <optgroup label="Auxiliares">
+                <option>Auxiliar de Obra</option>
+                <option>Mozo de Almacén</option>
+                <option>Técnico de Logística de Obra</option>
+                <option>Personal de Limpieza Post-Obra</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">📅 Años de experiencia *</label>
+            <input type="number" class="form-input" id="t-exp"
+              placeholder="Ej: 8" min="0" max="60"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">📊 Disponibilidad inicial *</label>
+          <div class="disp-reg-grid">
+            <div class="disp-reg-opt active" data-val="disponible"
+              onclick="seleccionarDisp(this)">
+              <span>✅</span>
+              <div>
+                <strong>Disponible</strong>
+                <p>Busco trabajo ahora</p>
+              </div>
+            </div>
+            <div class="disp-reg-opt" data-val="limitado"
+              onclick="seleccionarDisp(this)">
+              <span>◐</span>
+              <div>
+                <strong>Disponibilidad Limitada</strong>
+                <p>Tengo trabajo parcial</p>
+              </div>
+            </div>
+            <div class="disp-reg-opt" data-val="no_disponible"
+              onclick="seleccionarDisp(this)">
+              <span>❌</span>
+              <div>
+                <strong>No Disponible</strong>
+                <p>Estoy contratado</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🛠️ Habilidades principales</label>
+          <input type="text" class="form-input" id="t-habilidades"
+            placeholder="Ej: Tarrajeo, Encofrado metálico, Nivelación"/>
+          <span class="form-hint">Separa con comas · máximo 6</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📝 Descripción profesional</label>
+          <textarea class="form-textarea" id="t-desc" rows="3"
+            placeholder="Cuéntanos tu experiencia, en qué eres especialista y cómo trabajas…"></textarea>
+        </div>
+
+        <div style="display:flex;gap:12px">
+          <button class="btn-secondary" onclick="irPasoTrabajador(1)">← Atrás</button>
+          <button class="btn-primary" style="flex:1;justify-content:center"
+            onclick="siguientePasoTrabajador(2)">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Acceso -->
+      <div class="reg-paso" id="paso-t-3" style="display:none">
+
+        <div class="reg-perfil-preview" id="t-preview">
+          <!-- Generado por JS -->
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">📧 Correo electrónico *</label>
+          <div class="input-icon-wrap">
+            <span class="icon-left">📧</span>
+            <input type="email" class="form-input" id="t-email"
+              placeholder="tucorreo@gmail.com" autocomplete="email"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔒 Contraseña *</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-input" id="t-pass"
+              placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
+            <button type="button" class="toggle-pass"
+              onclick="togglePass('t-pass','icon-t-pass')">
+              <span id="icon-t-pass">👁️</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔒 Repetir contraseña *</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-input" id="t-pass2"
+              placeholder="Repite tu contraseña" autocomplete="new-password"/>
+            <button type="button" class="toggle-pass"
+              onclick="togglePass('t-pass2','icon-t-pass2')">
+              <span id="icon-t-pass2">👁️</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="check-label">
+            <input type="checkbox" id="t-terminos"/>
+            <span>Acepto los <a href="#" onclick="return false">Términos de uso</a> y la
+            <a href="#" onclick="return false">Política de privacidad</a></span>
+          </label>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn-secondary" onclick="irPasoTrabajador(2)">← Atrás</button>
+          <button class="btn-primary" style="flex:1;justify-content:center" id="btn-reg-trabajador"
+            onclick="registrarTrabajador()">👷 Crear Perfil de Trabajador</button>
+        </div>
+      </div>
+
+    </div><!-- form-trabajador -->
+
+    <!-- ── PANTALLA ÉXITO ── -->
+    <div class="reg-exito" id="reg-exito" style="display:none">
+      <div class="exito-ico" id="exito-ico">🎉</div>
+      <h2 class="exito-titulo" id="exito-titulo">¡Cuenta creada!</h2>
+      <p class="exito-sub"   id="exito-sub">Bienvenido a Construlinker</p>
+      <div class="exito-creditos" id="exito-creditos" style="display:none">
+        <span>🪙</span>
+        <div>
+          <strong>5 créditos de bienvenida añadidos</strong>
+          <p>Ya puedes empezar a contactar trabajadores</p>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;margin-top:10px"
+        id="btn-exito" onclick="irAlApp()">
+        🚀 Ir a la plataforma
+      </button>
+      <button class="btn-secondary" style="width:100%;justify-content:center;margin-top:10px"
+        onclick="window.location.href='index.html'">
+        🔐 Iniciar sesión
+      </button>
+    </div>
+
+    <div class="reg-login-link" id="link-login-bottom">
+      ¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a>
+    </div>
+
+  </main>
+</div><!-- .registro-page -->
+
+<script src="js/app.js"></script>
+<script src="js/registro.js"></script>
+</body>
+</html>

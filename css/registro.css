@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════════════
+   CONSTRULINKER — registro.css
+   Página de registro multi-paso
+═══════════════════════════════════════════════════════════════ */
+
+/* ── LAYOUT ──────────────────────────────────────────────────── */
+.registro-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .registro-form-side {
+    background: var(--fondo);
+    padding: 40px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .registro-form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* ── CABECERA ────────────────────────────────────────────────── */
+  .reg-header { margin-bottom: 24px; }
+  
+  .reg-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--gris-med);
+    cursor: pointer;
+    padding: 6px 0 16px;
+    transition: var(--trans);
+  }
+  .reg-back-btn:hover { color: var(--negro); }
+  
+  .reg-tipo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: .8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    margin-bottom: 12px;
+  }
+  .reg-tipo-empresa   { background: var(--negro); color: var(--amarillo); }
+  .reg-tipo-trabajador{ background: var(--amarillo); color: var(--negro); }
+  
+  /* ── TARJETAS DE TIPO ────────────────────────────────────────── */
+  .tipo-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .tipo-card {
+    background: var(--blanco);
+    border: 2.5px solid var(--gris-cla);
+    border-radius: var(--radio-lg);
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: var(--trans);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tipo-card:hover {
+    border-color: var(--amarillo);
+    box-shadow: var(--sombra-md);
+    transform: translateY(-3px);
+  }
+  
+  .tipo-card-ico    { font-size: 40px; line-height: 1; }
+  .tipo-card-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--negro);
+  }
+  .tipo-card-sub    { font-size: .82rem; color: var(--gris-med); line-height: 1.4; }
+  
+  .tipo-card-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 4px 0;
+  }
+  .tipo-card-lista li { font-size: .8rem; color: var(--negro); font-weight: 500; }
+  
+  .tipo-card-cta {
+    margin-top: auto;
+    font-size: .82rem;
+    font-weight: 800;
+    color: var(--amarillo-d);
+    padding-top: 8px;
+    border-top: 1.5px solid var(--gris-cla);
+  }
+  .tipo-card:hover .tipo-card-cta { color: var(--negro); }
+  
+  /* ── PROGRESO ────────────────────────────────────────────────── */
+  .reg-progreso {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 6px;
+  }
+  .prog-step {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--gris-cla);
+    color: var(--gris-med);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: var(--trans);
+  }
+  .prog-step.active    { background: var(--negro); color: var(--amarillo); }
+  .prog-step.completado{ background: var(--verde); color: var(--blanco); }
+  .prog-linea {
+    flex: 1;
+    height: 3px;
+    background: var(--gris-cla);
+    transition: var(--trans);
+  }
+  
+  .reg-progreso-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--gris-med);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 22px;
+    padding: 0 4px;
+  }
+  
+  /* ── PASO ────────────────────────────────────────────────────── */
+  .reg-paso { animation: fadeInUp .3s ease; }
+  
+  /* Row 2 columnas */
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  
+  /* Hint debajo del input */
+  .form-hint {
+    display: block;
+    font-size: .72rem;
+    color: #AAA;
+    margin-top: 4px;
+  }
+  
+  /* Checkbox label */
+  .check-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: .85rem;
+    color: var(--gris-med);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .check-label input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 1px;
+    accent-color: var(--amarillo);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .check-label a { color: var(--amarillo-d); font-weight: 700; }
+  
+  /* ── BIENVENIDA BOX (créditos gratis) ───────────────────────── */
+  .reg-bienvenida-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--amarillo-l);
+    border: 2px solid var(--amarillo);
+    border-radius: var(--radio);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: .9rem;
+  }
+  
+  /* ── AVATAR SELECTOR ────────────────────────────────────────── */
+  .avatar-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+    background: var(--fondo);
+    border-radius: var(--radio);
+    border: 1.5px solid var(--gris-cla);
+  }
+  .avatar-opt {
+    width: 44px; height: 44px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    transition: var(--trans);
+    background: var(--blanco);
+  }
+  .avatar-opt:hover { border-color: var(--amarillo); transform: scale(1.1); }
+  .avatar-opt.active { border-color: var(--negro); background: var(--amarillo-l); }
+  
+  /* ── DISPONIBILIDAD REGISTRO ────────────────────────────────── */
+  .disp-reg-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .disp-reg-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 2px solid var(--gris-cla);
+    border-radius: var(--radio);
+    cursor: pointer;
+    transition: var(--trans);
+    background: var(--fondo);
+    font-size: 22px;
+  }
+  .disp-reg-opt > div strong { font-size: .92rem; font-weight: 700; color: var(--negro); }
+  .disp-reg-opt > div p      { font-size: .78rem; color: var(--gris-med); margin: 1px 0 0; }
+  .disp-reg-opt:hover { border-color: var(--amarillo); background: var(--blanco); }
+  .disp-reg-opt.active[data-val="disponible"]    { border-color: var(--verde);   background: var(--verde-l); }
+  .disp-reg-opt.active[data-val="limitado"]      { border-color: #F39C12;         background: #FEF9E7; }
+  .disp-reg-opt.active[data-val="no_disponible"] { border-color: var(--rojo);    background: var(--rojo-l); }
+  
+  /* ── PREVIEW TRABAJADOR ─────────────────────────────────────── */
+  .reg-perfil-preview {
+    background: var(--negro);
+    border-radius: var(--radio);
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .preview-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .preview-avatar {
+    width: 56px; height: 56px;
+    background: var(--amarillo);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .preview-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--blanco);
+  }
+  .preview-oficio { font-size: .82rem; color: #888; margin-top: 2px; }
+  .preview-label  {
+    font-size: .72rem;
+    color: #555;
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+  /* ── ÉXITO ───────────────────────────────────────────────────── */
+  .reg-exito {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px 0;
+    animation: fadeInUp .4s ease;
+  }
+  .exito-ico {
+    font-size: 72px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .exito-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--negro);
+    margin-bottom: 8px;
+  }
+  .exito-sub {
+    font-size: 1rem;
+    color: var(--gris-med);
+    margin-bottom: 20px;
+  }
+  .exito-creditos {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--amarillo-l);
+    border: 2px solid var(--amarillo);
+    border-radius: var(--radio);
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    text-align: left;
+    font-size: 28px;
+  }
+  .exito-creditos strong { font-size: .95rem; font-weight: 800; color: var(--negro); }
+  .exito-creditos p      { font-size: .78rem; color: var(--gris-med); margin-top: 2px; }
+  
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    40%      { transform: translateY(-14px); }
+    60%      { transform: translateY(-6px); }
+  }
+  
+  /* ── LINK LOGIN ──────────────────────────────────────────────── */
+  .reg-login-link {
+    text-align: center;
+    font-size: .85rem;
+    color: var(--gris-med);
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--gris-cla);
+  }
+  .reg-login-link a { color: var(--amarillo-d); font-weight: 700; }
+  .reg-login-link a:hover { text-decoration: underline; }
+  
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .registro-page { grid-template-columns: 1fr; }
+    .login-brand   { min-height: auto; padding: 28px 24px 32px; }
+    .registro-form-side { padding: 28px 20px 48px; min-height: auto; }
+    .tipo-cards-grid { grid-template-columns: 1fr; }
+  }
+  
+  @media (max-width: 520px) {
+    .form-row-2 { grid-template-columns: 1fr; }
+    .disp-reg-grid { flex-direction: column; }
+    .reg-progreso-labels span:nth-child(2) { display: none; }
+  }

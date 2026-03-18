@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Empresa — Construlinker</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/perfil.css"/>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="app-header">
+  <div class="header-inner">
+    <a href="feed.html" class="logo">
+      <div class="logo-icon">🏗️</div>
+      <div class="logo-text">Constru<span>linker</span></div>
+    </a>
+    <nav class="header-nav">
+      <a href="feed.html"                class="nav-link">🔍 Buscar</a>
+      <a href="dashboard.html"           class="nav-link">🏢 Mi Empresa</a>
+      <a href="dashboard.html#historial" class="nav-link">📋 Historial</a>
+      <a href="dashboard.html#creditos"  class="nav-link">🛒 Créditos</a>
+    </nav>
+    <div class="header-right">
+      <div class="wallet-chip" onclick="activarTabDash('creditos')" title="Créditos">
+        <span>🪙</span>
+        <div>
+          <div class="wallet-label-sm">Créditos</div>
+          <div class="wallet-count" id="creditos-count">10</div>
+        </div>
+      </div>
+      <div class="user-badge">
+        <div class="user-avatar-sm">🏢</div>
+        <span class="user-name-sm" id="header-username">Empresa</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 Salir</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── DASHBOARD ── -->
+<div class="dashboard-layout">
+
+  <!-- Empresa Hero -->
+  <div class="empresa-hero">
+    <div class="empresa-logo">🏢</div>
+    <div class="empresa-info">
+      <div class="empresa-nombre"   id="emp-nombre">—</div>
+      <div class="empresa-ruc"      id="emp-ruc">—</div>
+      <div class="empresa-meta">
+        <span id="emp-representante">—</span>
+        <span id="emp-ubicacion">—</span>
+        <span id="emp-fundacion">—</span>
+        <span>👥 <span id="emp-empleados">—</span> empleados</span>
+      </div>
+    </div>
+    <div class="empresa-actions">
+      <button class="btn-editar" onclick="activarTabDash('perfil')">✏️ Editar Perfil</button>
+      <button class="btn-editar" onclick="activarTabDash('creditos')">🛒 Recargar</button>
+    </div>
+  </div>
+
+  <!-- Stats (5 tarjetas) -->
+  <div class="stats-grid" style="grid-template-columns:repeat(5,1fr)">
+    <div class="stat-card stat-creditos" onclick="activarTabDash('creditos')" style="cursor:pointer">
+      <div class="stat-icon">🪙</div>
+      <div class="stat-num"   id="stat-creditos">10</div>
+      <div class="stat-label">Créditos</div>
+    </div>
+    <div class="stat-card stat-verde" onclick="activarTabDash('historial')" style="cursor:pointer">
+      <div class="stat-icon">👷</div>
+      <div class="stat-num"   id="stat-revelados">0</div>
+      <div class="stat-label">Contactados</div>
+    </div>
+    <div class="stat-card stat-azul" onclick="activarTabDash('historial')" style="cursor:pointer">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-num"   id="stat-acciones">0</div>
+      <div class="stat-label">Acciones</div>
+    </div>
+    <div class="stat-card stat-naranja">
+      <div class="stat-icon">🏗️</div>
+      <div class="stat-num"   id="stat-proyectos">7</div>
+      <div class="stat-label">Proyectos activos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-num"   id="stat-completados">47</div>
+      <div class="stat-label">Completados</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="dash-tabs-bar">
+    <button class="dash-tab active" data-tab="perfil">🏢 Mi Perfil</button>
+    <button class="dash-tab"        data-tab="historial">📋 Historial</button>
+    <button class="dash-tab"        data-tab="creditos">🛒 Créditos</button>
+  </div>
+
+  <div class="dash-content">
+
+    <!-- ── PANEL: PERFIL ── -->
+    <div class="dash-panel active" id="dash-perfil">
+      <h3 style="margin-bottom:22px;font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;">
+        ✏️ Información de la Empresa
+      </h3>
+      <div class="perfil-edit-grid">
+        <div class="form-group">
+          <label class="form-label">🏢 Razón Social</label>
+          <input type="text"  class="form-input"  id="inp-nombre"         placeholder="Nombre de tu empresa"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🪪 RUC</label>
+          <input type="text"  class="form-input"  id="inp-ruc"            placeholder="20XXXXXXXXX"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">👤 Representante Legal</label>
+          <input type="text"  class="form-input"  id="inp-representante"  placeholder="Nombre completo"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">💼 Cargo</label>
+          <input type="text"  class="form-input"  id="inp-cargo"          placeholder="Gerente General, etc."/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📧 Correo corporativo</label>
+          <input type="email" class="form-input"  id="inp-email"          placeholder="correo@empresa.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📞 Teléfono</label>
+          <input type="tel"   class="form-input"  id="inp-tel"            placeholder="+51 01 XXX-XXXX"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🌐 Sitio web</label>
+          <input type="url"   class="form-input"  id="inp-web"            placeholder="www.tuempresa.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📍 Ubicación</label>
+          <input type="text"  class="form-input"  id="inp-ubicacion"      placeholder="Distrito, Lima"/>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">📝 Descripción</label>
+          <textarea class="form-textarea" id="inp-desc" rows="4"
+            placeholder="Describe tu empresa, especialidades y tipo de proyectos…"></textarea>
+        </div>
+      </div>
+
+      <div class="section-label">🏗️ Especialidades</div>
+      <div id="emp-especialidades" style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+
+      <div class="section-label">🎖️ Certificaciones</div>
+      <div id="emp-certificaciones" style="margin-bottom:24px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+
+      <div style="display:flex;gap:12px;">
+        <button class="btn-primary"   onclick="guardarPerfil()">💾 Guardar Cambios</button>
+        <button class="btn-secondary" onclick="mostrarToast('Cambios descartados','azul')">✖ Cancelar</button>
+      </div>
+    </div><!-- dash-perfil -->
+
+    <!-- ── PANEL: HISTORIAL ── -->
+    <div class="dash-panel" id="dash-historial">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:12px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;">
+          📋 Historial de Acciones
+        </h3>
+        <a href="feed.html" class="btn-secondary" style="font-size:.88rem;padding:9px 16px;">
+          🔍 Buscar más trabajadores
+        </a>
+      </div>
+      <div id="historial-container">
+        <!-- Generado por perfil.js -->
+      </div>
+    </div><!-- dash-historial -->
+
+    <!-- ── PANEL: CRÉDITOS ── -->
+    <div class="dash-panel" id="dash-creditos">
+
+      <!-- Saldo actual -->
+      <div class="creditos-saldo">
+        <div class="saldo-num" id="wallet-saldo-main">10</div>
+        <div class="saldo-label">🪙 Créditos disponibles en tu billetera</div>
+      </div>
+
+      <!-- Packs reales del PDF -->
+      <div class="paquetes-titulo">📦 Elige tu pack de recarga:</div>
+      <div id="packs-dashboard-container">
+        <!-- Generado por perfil.js → renderPacksDashboard() -->
+      </div>
+
+      <!-- Tabla de acciones y precios -->
+      <div class="section-label" style="margin-top:28px">💡 ¿Qué puedes hacer con tus créditos?</div>
+      <div style="background:var(--fondo);border-radius:var(--radio);overflow:hidden;border:1.5px solid var(--gris-cla);margin-bottom:20px">
+        <div style="display:grid;grid-template-columns:auto 1fr auto;gap:0">
+
+          <div style="padding:11px 16px;background:var(--negro);font-size:.78rem;font-weight:800;color:var(--amarillo);text-transform:uppercase;letter-spacing:.8px">Acción</div>
+          <div style="padding:11px 16px;background:var(--negro);font-size:.78rem;font-weight:800;color:var(--amarillo);text-transform:uppercase;letter-spacing:.8px">Descripción</div>
+          <div style="padding:11px 16px;background:var(--negro);font-size:.78rem;font-weight:800;color:var(--amarillo);text-transform:uppercase;letter-spacing:.8px;text-align:center">Costo</div>
+
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);font-weight:700">📞 Ver Contacto</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);color:var(--gris-med);font-size:.88rem">Acceso a teléfono, email y WhatsApp del trabajador</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);text-align:center"><span class="chip chip-more">🪙 1</span></div>
+
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);font-weight:700">📄 Descargar Docs</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);color:var(--gris-med);font-size:.88rem">PRL, CV, DNI/NIE, certificados y cursos</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);text-align:center"><span class="chip chip-more">🪙 1</span></div>
+
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);font-weight:700">📨 Enviar Oferta</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);color:var(--gris-med);font-size:.88rem">Notificación inmediata al trabajador con tu oferta</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);text-align:center"><span class="chip chip-more">🪙 1</span></div>
+
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);font-weight:700">📅 Ver Disponibilidad</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);color:var(--gris-med);font-size:.88rem">Saber si puede empezar hoy, mañana o esta semana</div>
+          <div style="padding:11px 16px;border-bottom:1.5px solid var(--gris-cla);text-align:center"><span class="chip chip-more">🪙 1</span></div>
+
+          <div style="padding:11px 16px;font-weight:700">⚡ Candidato Urgente</div>
+          <div style="padding:11px 16px;color:var(--gris-med);font-size:.88rem">Acceso a perfiles marcados como disponibles hoy</div>
+          <div style="padding:11px 16px;text-align:center"><span class="chip chip-more">🪙 1</span></div>
+        </div>
+      </div>
+
+      <!-- Nota legal / info -->
+      <div style="background:var(--negro);border-radius:var(--radio);padding:18px 22px;color:#AAA;font-size:.85rem;line-height:1.7">
+        <div style="color:var(--amarillo);font-weight:800;font-size:.95rem;margin-bottom:6px">⚖️ Sin suscripción · Sin permanencias · Sin riesgos</div>
+        Los créditos tienen validez de <strong style="color:#DDD">12 meses</strong> desde la compra.
+        No se reembolsan una vez gastados. Los packs se acumulan si compras más de uno.
+        Construlinker no gestiona contratos ni nóminas — solo facilita el contacto entre empresa y trabajador.
+      </div>
+
+    </div><!-- dash-creditos -->
+
+  </div><!-- .dash-content -->
+
+</div><!-- .dashboard-layout -->
+
+<script src="js/app.js"></script>
+<script src="js/perfil.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    initDashboard();
+
+    // Pre-llenar formulario de perfil
+    var e = EMPRESA_DEMO;
+    var sv = function(id, v) { var el = document.getElementById(id); if (el) el.value = v; };
+    sv('inp-nombre',        e.nombre);
+    sv('inp-ruc',           e.ruc);
+    sv('inp-representante', e.representante);
+    sv('inp-cargo',         e.cargo);
+    sv('inp-email',         e.email);
+    sv('inp-tel',           e.telefono);
+    sv('inp-web',           e.web);
+    sv('inp-ubicacion',     e.ubicacion);
+    sv('inp-desc',          e.descripcion);
+  });
+
+  function guardarPerfil() {
+    mostrarToast('✅ Perfil guardado correctamente', 'verde');
+  }
+</script>
+</body>
+</html>

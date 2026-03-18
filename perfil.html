@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil de Trabajador — Construlinker</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/perfil.css"/>
+  <link rel="stylesheet" href="css/feed.css"/>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="app-header">
+  <div class="header-inner">
+    <a href="feed.html" class="logo">
+      <div class="logo-icon">🏗️</div>
+      <div class="logo-text">Constru<span>linker</span></div>
+    </a>
+    <nav class="header-nav">
+      <a href="feed.html"                class="nav-link">🔍 Buscar</a>
+      <a href="dashboard.html"           class="nav-link">🏢 Mi Empresa</a>
+      <a href="dashboard.html#historial" class="nav-link">📋 Historial</a>
+      <a href="dashboard.html#creditos"  class="nav-link">🛒 Créditos</a>
+    </nav>
+    <div class="header-right">
+      <div class="wallet-chip" onclick="window.location.href='dashboard.html#creditos'" title="Créditos">
+        <span>🪙</span>
+        <div>
+          <div class="wallet-label-sm">Créditos</div>
+          <div class="wallet-count" id="creditos-count">10</div>
+        </div>
+      </div>
+      <div class="user-badge">
+        <div class="user-avatar-sm">🏢</div>
+        <span class="user-name-sm" id="header-username">Empresa</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 Salir</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── CONTENIDO ── -->
+<div id="perfil-container">
+<div class="perfil-layout">
+
+  <!-- ── COLUMNA PRINCIPAL ── -->
+  <div class="perfil-main-col">
+
+    <a href="feed.html" class="back-link">← Volver al buscador</a>
+
+    <!-- Cover + Head -->
+    <div class="perfil-cover" id="cover-color">
+      <div class="cover-pattern"></div>
+    </div>
+
+    <div class="perfil-head-card">
+      <div class="perfil-avatar-area">
+        <div class="perfil-avatar-big" id="perfil-emoji">👷</div>
+        <div class="perfil-avatar-info">
+          <span class="estado-badge badge-disponible" id="perfil-estado">● Disponible</span>
+        </div>
+      </div>
+
+      <div class="perfil-name-row">
+        <h1 class="perfil-name" id="perfil-nombre">—</h1>
+        <span class="perfil-verificado">✅ Verificado</span>
+      </div>
+
+      <p class="perfil-oficio" id="perfil-oficio">—</p>
+
+      <div class="perfil-meta-row">
+        <span class="perfil-meta-item" id="perfil-zona">📍 —</span>
+        <span class="perfil-meta-item" id="perfil-exp">📅 —</span>
+        <div  class="perfil-meta-item" id="perfil-stars"></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="perfil-tabs-bar">
+      <button class="tab-btn active" data-tab="sobre">👤 Sobre mí</button>
+      <button class="tab-btn"        data-tab="documentos">📄 Documentación</button>
+      <button class="tab-btn"        data-tab="proyectos">🏗️ Proyectos</button>
+      <button class="tab-btn"        data-tab="reseñas">⭐ Reseñas</button>
+    </div>
+
+    <!-- Tab: Sobre mí -->
+    <div class="tab-panel active" id="tab-sobre"
+         style="background:var(--blanco);border-radius:0 0 var(--radio) var(--radio);box-shadow:var(--sombra);padding:24px;">
+      <!-- Generado por perfil.js -->
+    </div>
+
+    <!-- Tab: Documentación -->
+    <div class="tab-panel" id="tab-documentos"
+         style="background:var(--blanco);border-radius:0 0 var(--radio) var(--radio);box-shadow:var(--sombra);padding:24px;">
+      <!-- Generado por perfil.js -->
+    </div>
+
+    <!-- Tab: Proyectos -->
+    <div class="tab-panel" id="tab-proyectos"
+         style="background:var(--blanco);border-radius:0 0 var(--radio) var(--radio);box-shadow:var(--sombra);padding:24px;">
+      <!-- Generado por perfil.js -->
+    </div>
+
+    <!-- Tab: Reseñas -->
+    <div class="tab-panel" id="tab-reseñas"
+         style="background:var(--blanco);border-radius:0 0 var(--radio) var(--radio);box-shadow:var(--sombra);padding:24px;">
+      <!-- Generado por perfil.js -->
+    </div>
+
+  </div><!-- .perfil-main-col -->
+
+  <!-- ── SIDEBAR CTA ── -->
+  <aside>
+    <div class="sidebar-cta-card">
+      <div class="sidebar-cta-head">
+        <span style="font-size:22px">⚡</span>
+        <div>
+          <div class="sidebar-cta-head-title">Acciones disponibles</div>
+          <div class="sidebar-cta-head-sub">Cada acción cuesta 1 crédito</div>
+        </div>
+      </div>
+      <div class="sidebar-cta-body" id="sidebar-cta">
+        <div style="text-align:center;padding:20px 0;color:var(--gris-med);">
+          <div style="font-size:32px">⏳</div>
+          <p>Cargando...</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- .perfil-layout -->
+</div><!-- #perfil-container -->
+
+<script src="js/app.js"></script>
+<script src="js/perfil.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() { initPerfil(); });
+</script>
+</body>
+</html>

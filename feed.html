@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buscar Trabajadores — Construlinker</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/feed.css"/>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="app-header">
+  <div class="header-inner">
+    <a href="feed.html" class="logo">
+      <div class="logo-icon">🏗️</div>
+      <div class="logo-text">Constru<span>linker</span></div>
+    </a>
+
+    <nav class="header-nav">
+      <a href="feed.html"                    class="nav-link">🔍 Buscar</a>
+      <a href="dashboard.html"               class="nav-link">🏢 Mi Empresa</a>
+      <a href="dashboard.html#historial"     class="nav-link">📋 Historial</a>
+      <a href="dashboard.html#creditos"      class="nav-link">🛒 Créditos</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="wallet-chip" onclick="window.location.href='dashboard.html#creditos'" title="Créditos disponibles">
+        <span>🪙</span>
+        <div>
+          <div class="wallet-label-sm">Créditos</div>
+          <div class="wallet-count" id="creditos-count">10</div>
+        </div>
+      </div>
+      <div class="user-badge">
+        <div class="user-avatar-sm">🏢</div>
+        <span class="user-name-sm" id="header-username">Empresa</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 Salir</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── SEMÁFORO DE CRÉDITOS ── -->
+<div class="semaforo-banner semaforo-normal" id="semaforo-banner" style="display:none">
+  <span class="semaforo-ico">⚠️</span>
+  <span class="semaforo-msg" id="semaforo-msg"></span>
+  <button class="btn-primary" style="margin-left:auto;padding:9px 18px;font-size:.88rem" onclick="abrirModalCompra()">
+    🛒 Comprar Créditos
+  </button>
+</div>
+
+<!-- ── BANNER SIN CRÉDITOS (legacy) ── -->
+<div class="banner-sin-creditos" id="banner-sin-creditos">
+  <span style="font-size:26px">⛔</span>
+  <div class="banner-texto">
+    <div class="banner-titulo">¡Sin créditos disponibles!</div>
+    <div class="banner-sub">Compra un pack para seguir contactando trabajadores.</div>
+  </div>
+  <button class="btn-primary" onclick="abrirModalCompra()">🛒 Comprar Créditos</button>
+</div>
+
+<!-- ── LAYOUT ── -->
+<div class="feed-layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="feed-sidebar">
+
+    <!-- Wallet -->
+    <div class="sidebar-card sidebar-wallet">
+      <div class="sidebar-section-title" style="color:#888">🪙 Tu Billetera</div>
+      <div class="wallet-display">
+        <div class="wallet-big-num" id="wallet-sidebar-num">10</div>
+        <div class="wallet-big-label">Créditos disponibles</div>
+        <div class="wallet-barra">
+          <div class="wallet-progreso" id="wallet-progreso" style="width:100%"></div>
+        </div>
+      </div>
+      <button class="btn-recargar" onclick="abrirModalCompra()">🛒 Recargar Créditos</button>
+    </div>
+
+    <!-- Categorías -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">📁 Categorías</div>
+      <ul class="cat-list">
+        <li class="cat-item active" onclick="filtrarTag(this,'')"                     data-cat=""><span>🔍 Todos</span><span class="cat-count">12</span></li>
+        <li class="cat-item"        onclick="filtrarTag(this,'Obra Gruesa')"           data-cat="Obra Gruesa"><span>🧱 Obra Gruesa</span><span class="cat-count">2</span></li>
+        <li class="cat-item"        onclick="filtrarTag(this,'Acabados')"              data-cat="Acabados"><span>🎨 Acabados</span><span class="cat-count">2</span></li>
+        <li class="cat-item"        onclick="filtrarTag(this,'Instalaciones')"         data-cat="Instalaciones"><span>⚡ Instalaciones</span><span class="cat-count">2</span></li>
+        <li class="cat-item"        onclick="filtrarTag(this,'Maquinaria y Transporte')" data-cat="Maquinaria y Transporte"><span>🚜 Maquinaria</span><span class="cat-count">3</span></li>
+        <li class="cat-item"        onclick="filtrarTag(this,'Técnicos y Gestión')"    data-cat="Técnicos y Gestión"><span>📋 Técnicos</span><span class="cat-count">2</span></li>
+        <li class="cat-item"        onclick="filtrarTag(this,'Auxiliares')"            data-cat="Auxiliares"><span>🦺 Auxiliares</span><span class="cat-count">1</span></li>
+      </ul>
+    </div>
+
+    <!-- Leyenda de estados -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">📊 Estados</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem;">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge-estado badge-disponible" style="font-size:.72rem">● Disponible</span>
+          <span style="color:var(--gris-med)">Listo para contratar</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge-estado badge-limitado" style="font-size:.72rem">◐ Limitado</span>
+          <span style="color:var(--gris-med)">Disponibilidad parcial</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge-estado badge-no-disponible" style="font-size:.72rem">● No Disponible</span>
+          <span style="color:var(--gris-med)">Contratado / baja</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="sidebar-card">
+      <div class="sidebar-section-title">📈 Resumen</div>
+      <div class="quick-stats">
+        <div class="q-stat">
+          <div class="q-stat-num" id="qs-creditos">10</div>
+          <div class="q-stat-label">Créditos</div>
+        </div>
+        <div class="q-stat">
+          <div class="q-stat-num" id="qs-revelados">0</div>
+          <div class="q-stat-label">Contactados</div>
+        </div>
+        <div class="q-stat">
+          <div class="q-stat-num" id="qs-acciones">0</div>
+          <div class="q-stat-label">Acciones</div>
+        </div>
+        <div class="q-stat">
+          <div class="q-stat-num">12</div>
+          <div class="q-stat-label">Perfiles</div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── FEED PRINCIPAL ── -->
+  <main class="feed-main">
+
+    <!-- Buscador -->
+    <section class="search-section">
+      <div class="search-section-title">🔎 Buscar trabajadores</div>
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="Busca por oficio, zona o habilidad…"/>
+        </div>
+        <select id="cat-select" class="cat-select">
+          <option value="">📁 Todas las categorías</option>
+          <option value="Obra Gruesa">🧱 Obra Gruesa</option>
+          <option value="Acabados">🎨 Acabados</option>
+          <option value="Instalaciones">⚡ Instalaciones</option>
+          <option value="Maquinaria y Transporte">🚜 Maquinaria y Transporte</option>
+          <option value="Técnicos y Gestión">📋 Técnicos y Gestión</option>
+          <option value="Auxiliares">🦺 Auxiliares</option>
+        </select>
+        <button class="btn-search" onclick="aplicarFiltros()">🔍 Buscar</button>
+      </div>
+
+      <div class="filter-tags">
+        <button class="filter-tag active"   data-cat=""                      onclick="filtrarTag(this,'')">Todo</button>
+        <button class="filter-tag"          data-cat="Obra Gruesa"            onclick="filtrarTag(this,'Obra Gruesa')">🧱 Obra Gruesa</button>
+        <button class="filter-tag"          data-cat="Acabados"               onclick="filtrarTag(this,'Acabados')">🎨 Acabados</button>
+        <button class="filter-tag"          data-cat="Instalaciones"          onclick="filtrarTag(this,'Instalaciones')">⚡ Instalaciones</button>
+        <button class="filter-tag"          data-cat="Maquinaria y Transporte" onclick="filtrarTag(this,'Maquinaria y Transporte')">🚜 Maquinaria</button>
+        <button class="filter-tag"          data-cat="Técnicos y Gestión"     onclick="filtrarTag(this,'Técnicos y Gestión')">📋 Técnicos</button>
+        <button class="filter-tag"          data-cat="Auxiliares"             onclick="filtrarTag(this,'Auxiliares')">🦺 Auxiliares</button>
+      </div>
+    </section>
+
+    <!-- Info acciones -->
+    <div class="acciones-info-bar">
+      <span>💡 Cada acción cuesta <strong>1 crédito</strong>: Ver Contacto · Enviar Oferta · Ver Disponibilidad · Descargar Docs</span>
+    </div>
+
+    <!-- Results bar -->
+    <div class="results-bar">
+      <div>
+        <div class="results-title" id="results-title">Todos los Trabajadores</div>
+        <div class="results-count" id="results-count">12 perfiles encontrados</div>
+      </div>
+      <div class="sort-wrap">
+        🔃
+        <select class="sort-select">
+          <option>Más valorados</option>
+          <option>Disponibles primero</option>
+          <option>Más experiencia</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards-grid" id="cards-container">
+      <!-- Generado por feed.js -->
+    </div>
+
+  </main>
+</div><!-- .feed-layout -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     MODAL: CONFIRMAR ACCIÓN
+════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-ico">🤝</div>
+    <h2 class="modal-title">Confirmar acción</h2>
+
+    <div style="background:var(--fondo);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:left">
+      <div style="font-size:.78rem;font-weight:700;color:var(--gris-med);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Trabajador</div>
+      <div style="font-weight:800;font-size:1.05rem" id="modal-nombre">—</div>
+      <div style="font-size:.88rem;color:var(--gris-med)" id="modal-oficio">—</div>
+    </div>
+
+    <div class="modal-cost">
+      <span id="modal-accion-label">📞 Ver Contacto</span>
+    </div>
+
+    <p style="font-size:.85rem;color:var(--gris-med);margin:8px 0 4px;line-height:1.55" id="modal-accion-desc">
+      Esta acción consume 1 crédito.
+    </p>
+
+    <p class="modal-saldo">
+      Saldo actual: <strong id="modal-saldo">—</strong> créditos →
+      quedarás con <strong id="modal-saldo-post">—</strong>
+    </p>
+
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="cerrarModal()">✖ Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarAccion()">✅ Confirmar · 1 Crédito</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MODAL: COMPRAR CRÉDITOS
+════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-compra-overlay" style="display:none">
+  <div class="modal-box" style="max-width:580px">
+    <div class="modal-ico">💳</div>
+    <h2 class="modal-title">Recargar Créditos</h2>
+    <p class="modal-body">Cada crédito te permite realizar una acción: ver contacto, enviar oferta, consultar disponibilidad o descargar documentación.</p>
+
+    <div class="compra-grid" id="packs-modal-container">
+      <!-- Generado por feed.js → renderPacksModal() -->
+    </div>
+
+    <div style="background:var(--fondo);border-radius:var(--radio);padding:14px 16px;font-size:.82rem;color:var(--gris-med);margin-bottom:14px;line-height:1.6">
+      ⏱ <strong>Los créditos no vencen</strong> — validez 12 meses desde la compra.<br>
+      💡 <strong>Sin suscripción:</strong> solo pagas cuando los necesitas.
+    </div>
+
+    <button class="btn-secondary" style="width:100%" onclick="cerrarModalCompra()">✖ Ahora no</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/feed.js"></script>
+</body>
+</html>
